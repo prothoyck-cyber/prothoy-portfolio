@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Spin } from '../components/SharedPrimitives.jsx';
 
-// Admin login screen
-const ADMIN_EMAIL = "prothoyck@gmail.com";
-const ADMIN_PASS  = "prothoy96@#";
+// Admin credentials from environment variables (set in Netlify dashboard)
+// Fallback values only for local dev if .env.local not set
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL || "";
+const ADMIN_PASS  = import.meta.env.VITE_ADMIN_PASSWORD || "";
 
 function AdminLogin({ onLogin, onBack }) {
   const [email, setEmail]     = useState("");
@@ -117,6 +119,5 @@ function AdminLogin({ onLogin, onBack }) {
     </div>
   );
 }
-
 
 export { AdminLogin };

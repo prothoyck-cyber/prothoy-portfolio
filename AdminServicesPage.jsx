@@ -10,7 +10,4 @@ function AToggle({ checked, onChange }) {
 }
 function Spin() { return <span className="a-spin" />; }
 
-/* ════════════════════════════════════════════════════
-   WEBSITE COMPONENTS
-
 export { AToggle, Spin };

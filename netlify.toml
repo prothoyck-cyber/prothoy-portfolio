@@ -1,72 +1,11 @@
-// ════════════════════════════════════════════════
-//  SITE DATA — Edit here to update all content
-// ════════════════════════════════════════════════
+// Social media SVG icon components
 
-const D_SERVICES = [
-  { id:1,  icon:"✦", title:"Poster Design",        desc:"High-impact visual narratives that stop the scroll and command attention.",           price:"From $49",  color:"#00D4FF", active:true  },
-  { id:2,  icon:"◈", title:"Graphics Design",       desc:"Brand identities and visual systems built for longevity and recognition.",           price:"From $79",  color:"#8B5CF6", active:true  },
-  { id:3,  icon:"⬡", title:"Social Media Design",  desc:"Cohesive content ecosystems that grow audiences and drive engagement.",               price:"From $39",  color:"#6C63FF", active:true  },
-  { id:4,  icon:"◉", title:"Product Design",        desc:"Packaging and product visuals that convert browsers into buyers.",                    price:"From $99",  color:"#00D4FF", active:true  },
-  { id:5,  icon:"▣", title:"Banner Design",         desc:"Ad creatives and banners engineered for maximum click-through rates.",               price:"From $29",  color:"#EC4899", active:true  },
-  { id:6,  icon:"▶", title:"Video Editing",         desc:"Cinematic post-production that transforms raw footage into compelling stories.",      price:"From $149", color:"#8B5CF6", active:true  },
-  { id:7,  icon:"◎", title:"Reels Editing",         desc:"Short-form content that hooks in 3 seconds and retains till the very end.",          price:"From $59",  color:"#6C63FF", active:true  },
-  { id:8,  icon:"⟡", title:"Motion Graphics",       desc:"Animated visuals that make brands feel alive and futuristic.",                      price:"From $199", color:"#00D4FF", active:true  },
-  { id:9,  icon:"⌬", title:"Website Development",   desc:"Performance-first websites that rank, convert, and impress visitors.",              price:"From $499", color:"#EC4899", active:true  },
-  { id:10, icon:"⊕", title:"SEO Optimization",      desc:"Data-driven search strategies that compound over time and dominate SERPs.",          price:"From $199", color:"#8B5CF6", active:true  },
-  { id:11, icon:"◆", title:"AI Agent Development",  desc:"Custom AI automations that remove bottlenecks and scale operations effortlessly.",   price:"From $299", color:"#6C63FF", active:true  },
-  { id:12, icon:"⊞", title:"Meta Ads Management",   desc:"Paid social campaigns optimized for ROAS and sustainable long-term growth.",        price:"From $249", color:"#00D4FF", active:true  },
-  { id:13, icon:"⟳", title:"Automation Solutions",  desc:"End-to-end workflow automations that save hundreds of hours every month.",           price:"From $349", color:"#EC4899", active:true  },
-];
-const D_PORTFOLIO = [
-  { id:1, title:"Neon Brand Identity",     category:"Graphics Design",     client:"TechVault",      year:"2024", tags:["Brand","Identity"],    featured:true  },
-  { id:2, title:"Cinematic Reels Series",  category:"Reels Editing",       client:"VibeCo",         year:"2024", tags:["Video","Social"],      featured:true  },
-  { id:3, title:"E-commerce Website",      category:"Website Development", client:"LuxeStore",      year:"2024", tags:["Web","Dev"],            featured:false },
-  { id:4, title:"Product Launch Poster",   category:"Poster Design",       client:"FusionX",        year:"2023", tags:["Print","Poster"],      featured:true  },
-  { id:5, title:"SEO 10x Growth",          category:"SEO",                 client:"RankFast",       year:"2024", tags:["SEO","Growth"],        featured:false },
-  { id:6, title:"AI Sales Bot",            category:"AI Automation",       client:"AutoSell",       year:"2024", tags:["AI","Automation"],     featured:true  },
-  { id:7, title:"Meta Ads Certificate",    category:"Certificate",         client:"Meta Blueprint", year:"2024", tags:["Certificate","Meta"],  featured:false },
-  { id:8, title:"Google Digital Marketing",category:"Certificate",         client:"Google",         year:"2023", tags:["Certificate","Google"],featured:false },
-];
-const D_REVIEWS = [
-  { id:1, name:"Arjun Mehta",  role:"CEO, TechVault",         rating:5, text:"Prothoy transformed our entire visual identity. The work is genuinely world-class — I've worked with agencies in London and NYC that didn't come close." },
-  { id:2, name:"Sarah Lin",    role:"Founder, VibeCo",         rating:5, text:"Our Reels engagement went from 2% to 18% after just one month. The editing style is cinematic and addictive. Best investment we've made in content." },
-  { id:3, name:"Md. Rafiq",    role:"Director, LuxeStore",     rating:5, text:"The website Prothoy built ranks on page 1 for 40+ keywords. Fast, beautiful, and converts visitors like crazy. Absolutely phenomenal work." },
-  { id:4, name:"Priya Sharma", role:"Marketing Head, FusionX", rating:5, text:"Working prototype by Wednesday. The ROI from this automation alone paid for the project 12× over. Mind-blowing speed and quality." },
-];
-const D_MESSAGES = [
-  { id:1, name:"Tariq Hassan", email:"tariq@example.com",   phone:"+880 170000000", message:"Need a full brand identity for my startup. What's your timeline?",      date:"2024-06-01", read:false },
-  { id:2, name:"Lena Kim",     email:"lena@vibeco.io",       phone:"",               message:"Loved your reels work. Can we talk about a monthly retainer?",           date:"2024-05-30", read:false },
-  { id:3, name:"Ramesh Gupta", email:"ramesh@luxestore.in",  phone:"+91 900000000",  message:"Need an SEO audit for our Shopify store. Budget is $500.",               date:"2024-05-28", read:true  },
-];
-const D_SOCIAL = [
-  { id:1, platform:"Facebook",  url:"https://www.facebook.com/share/1DBhxU2qhi/",               color:"#1877F2", visible:true },
-  { id:2, platform:"WhatsApp",  url:"https://wa.me/8801828303504",                               color:"#25D366", visible:true },
-  { id:3, platform:"YouTube",   url:"https://youtube.com/@prothoy96",                            color:"#FF0000", visible:true },
-  { id:4, platform:"LinkedIn",  url:"https://www.linkedin.com/in/prothoy-chakraborty-8a713a391", color:"#0A66C2", visible:true },
-  { id:5, platform:"Instagram", url:"https://www.instagram.com/prothoy_96",                      color:"#E1306C", visible:true },
-];
-const D_HERO    = { badge:"Available for New Projects", title1:"Helping Brands", title2:"Grow Through", titleAccent:"Design, Marketing", title3:"& AI", subtitle:"I build high-converting designs, videos, websites, SEO systems and AI automations that scale businesses to the next level.", btn1:"View Projects", btn2:"Contact Me", stat1v:"200+", stat1l:"Projects Done", stat2v:"150+", stat2l:"Happy Clients", stat3v:"5.0★", stat3l:"Rating" };
-const D_ABOUT   = { name:"Prothoy Chakraborty", experience:"4+", tagline:"Designer · Video Editor · Developer · SEO · AI Expert", bio1:"A creative force and digital strategist helping brands unlock their full potential.", bio2:"My mission: to deliver work so good that clients never need to look elsewhere." };
-const D_CONTACT = { email:"prothoycbsm@gmail.com", phone:"+880 1828 303504", location:"Raozan, Chittagong", subtitle:"Drop a message and I'll get back within 24 hours." };
-const D_SKILLS  = [
-  { id:1, name:"Graphics Design",     level:98, color:"#00D4FF" },
-  { id:2, name:"Video Editing",       level:95, color:"#8B5CF6" },
-  { id:3, name:"Website Development", level:90, color:"#6C63FF" },
-  { id:4, name:"SEO Optimization",    level:92, color:"#EC4899" },
-  { id:5, name:"AI Automation",       level:88, color:"#00D4FF" },
-  { id:6, name:"Meta Ads",            level:85, color:"#8B5CF6" },
-];
-const D_STATS   = [{ id:1,value:200,suffix:"+",label:"Projects Delivered"},{id:2,value:150,suffix:"+",label:"Happy Clients"},{id:3,value:5,suffix:"★",label:"Average Rating"},{id:4,value:4,suffix:"+",label:"Years Experience"}];
-const D_MARQUEE = ["Poster Design","Video Editing","SEO Optimization","Web Development","AI Automation","Motion Graphics","Meta Ads","Reels Editing","Brand Identity","Product Design"];
-
-const CAT_COLORS = { "Poster Design":"#00D4FF","Graphics Design":"#8B5CF6","Video Editing":"#6C63FF","Website Development":"#EC4899","AI Automation":"#00D4FF","SEO":"#8B5CF6","Certificate":"#FFB800","Reels Editing":"#EC4899","Motion Graphics":"#6C63FF","Social Media Design":"#8B5CF6","Banner Design":"#00D4FF","Product Design":"#EC4899" };
-const CAT_ICONS  = { "Poster Design":"✦","Graphics Design":"◈","Video Editing":"▶","Website Development":"⌬","AI Automation":"◆","SEO":"⊕","Reels Editing":"◎","Motion Graphics":"⟡","Certificate":"🏆","Social Media Design":"⬡","Banner Design":"▣","Product Design":"◉" };
-const PORT_CATS  = ["All","Poster Design","Graphics Design","Reels Editing","Website Development","SEO","AI Automation","Certificate","Motion Graphics","Social Media Design","Video Editing"];
-const ALL_PORT_CATS = ["Graphics Design","Reels Editing","Website Development","Poster Design","SEO","AI Automation","Certificate","Motion Graphics","Social Media Design","Video Editing","Banner Design","Product Design"];
-
-
-export {
-  D_SERVICES, D_PORTFOLIO, D_REVIEWS, D_MESSAGES, D_SOCIAL,
-  D_HERO, D_ABOUT, D_CONTACT, D_SKILLS, D_STATS, D_MARQUEE,
-  CAT_COLORS, CAT_ICONS, PORT_CATS, ALL_PORT_CATS
+const SOCIAL_ICONS = {
+  Facebook:<svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>,
+  WhatsApp:<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>,
+  YouTube:<svg width="20" height="20" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>,
+  LinkedIn:<svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>,
+  Instagram:<svg width="20" height="20" viewBox="0 0 24 24" fill="url(#ig)"><defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stopColor="#f09433"/><stop offset="50%" stopColor="#dc2743"/><stop offset="100%" stopColor="#bc1888"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>,
 };
+
+export { SOCIAL_ICONS };
