@@ -1,0 +1,173 @@
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+
+// ── Data ────────────────────────────────────────────────
+import { D_SERVICES, D_PORTFOLIO, D_REVIEWS, D_MESSAGES, D_SOCIAL,
+         D_HERO, D_ABOUT, D_CONTACT, D_SKILLS, D_STATS, D_MARQUEE,
+         CAT_COLORS, CAT_ICONS, PORT_CATS, ALL_PORT_CATS } from './data/siteData.js';
+import { SOCIAL_ICONS } from './data/socialIcons.jsx';
+
+// ── Hooks ───────────────────────────────────────────────
+import { useLS } from './hooks/useLocalStorage.js';
+
+// ── Styles ──────────────────────────────────────────────
+import { GlobalCSS } from './styles/GlobalCSS.jsx';
+
+// ── Shared Components ───────────────────────────────────
+import { toast, Toasts } from './components/Toast.jsx';
+import { AToggle, Spin } from './components/SharedPrimitives.jsx';
+import { ScrollProg } from './components/ScrollProgress.jsx';
+import { WebNav } from './components/Navbar.jsx';
+
+// ── Website Sections ────────────────────────────────────
+import { useCounter, WebHero } from './sections/Hero.jsx';
+import { WebMarquee } from './sections/Marquee.jsx';
+import { WebStats } from './sections/Stats.jsx';
+import { WebServices } from './sections/Services.jsx';
+import { WebPortfolio } from './sections/Portfolio.jsx';
+import { WebReviews } from './sections/Reviews.jsx';
+import { WebAbout } from './sections/About.jsx';
+import { WebContact } from './sections/Contact.jsx';
+
+// ── Admin Panel ─────────────────────────────────────────
+import { AdminSearch } from './admin/AdminSearch.jsx';
+import { AMENU, AGROUPS, AdminSidebar } from './admin/AdminSidebar.jsx';
+import { AdminLogin } from './admin/AdminLogin.jsx';
+import { PH, AdminDashboard } from './admin/AdminDashboard.jsx';
+import { AdminHeroPage } from './admin/AdminHeroPage.jsx';
+import { AdminMarqueePage } from './admin/AdminMarqueePage.jsx';
+import { AdminStatsPage } from './admin/AdminStatsPage.jsx';
+import { AdminServicesPage } from './admin/AdminServicesPage.jsx';
+import { AdminPortfolioPage } from './admin/AdminPortfolioPage.jsx';
+import { AdminReviewsPage } from './admin/AdminReviewsPage.jsx';
+import { AdminAboutPage } from './admin/AdminAboutPage.jsx';
+import { AdminContactPage } from './admin/AdminContactPage.jsx';
+import { AdminSocialPage } from './admin/AdminSocialPage.jsx';
+import { AdminSectionsPage } from './admin/AdminSectionsPage.jsx';
+import { AdminMessagesPage } from './admin/AdminMessagesPage.jsx';
+import { AdminSettingsPage } from './admin/AdminSettingsPage.jsx';
+
+/* ════════════════════════════════════════════════════
+   ROOT APP — COMBINES BOTH
+════════════════════════════════════════════════════ */
+const PT={dashboard:"Overview",hero:"Hero Section",marquee:"Marquee Tags",stats:"Stats",services:"Services",portfolio:"Portfolio",reviews:"Reviews",about:"About & Skills",contact:"Contact Info",social:"Social Links",sections:"Sections Order",messages:"Messages",settings:"Settings"};
+
+export default function App() {
+  // MODE: hash-based routing — #admin or #admin/... opens admin
+  const getMode = () => {
+    const h = window.location.hash;
+    if (h === "#admin") return "admin-login";
+    if (h.startsWith("#admin/")) return "admin";
+    return "website";
+  };
+  const [mode, setMode]       = useState(getMode);
+  const [adminPage, setAdminPage] = useState("dashboard");
+  const [collapsed, setCollapsed] = useState(false);
+
+  // Listen to hash changes (back/forward navigation)
+  useEffect(() => {
+    const onHash = () => setMode(getMode());
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  const goAdmin    = () => { window.location.hash = "#admin"; };
+  const goAdminApp = () => { window.location.hash = "#admin/panel"; };
+  const goWebsite  = () => { window.location.hash = ""; };
+
+  // SHARED STATE (website reads + admin edits)
+  const [hero,      setHero]      = useLS("pc_hero",      D_HERO);
+  const [marquee,   setMarquee]   = useLS("pc_marquee",   D_MARQUEE);
+  const [stats,     setStats]     = useLS("pc_stats",     D_STATS);
+  const [services,  setServices]  = useLS("pc_services",  D_SERVICES);
+  const [portfolio, setPortfolio] = useLS("pc_portfolio", D_PORTFOLIO);
+  const [reviews,   setReviews]   = useLS("pc_reviews",   D_REVIEWS);
+  const [about,     setAbout]     = useLS("pc_about",     D_ABOUT);
+  const [skills,    setSkills]    = useLS("pc_skills",    D_SKILLS);
+  const [contact,   setContact]   = useLS("pc_contact",   D_CONTACT);
+  const [social,    setSocial]    = useLS("pc_social",    D_SOCIAL);
+  const [messages,  setMessages]  = useLS("pc_messages",  D_MESSAGES);
+
+  const unread = messages.filter(m=>!m.read).length;
+
+  /* ── ADMIN PAGE ROUTER ─────────────────── */
+  const renderAdminPage = () => {
+    switch(adminPage) {
+      case "dashboard": return <AdminDashboard services={services} portfolio={portfolio} reviews={reviews} messages={messages} onNav={setAdminPage}/>;
+      case "hero":      return <AdminHeroPage hero={hero} setHero={setHero}/>;
+      case "marquee":   return <AdminMarqueePage marquee={marquee} setMarquee={setMarquee}/>;
+      case "stats":     return <AdminStatsPage stats={stats} setStats={setStats}/>;
+      case "services":  return <AdminServicesPage data={services} setData={setServices}/>;
+      case "portfolio": return <AdminPortfolioPage data={portfolio} setData={setPortfolio}/>;
+      case "reviews":   return <AdminReviewsPage data={reviews} setData={setReviews}/>;
+      case "about":     return <AdminAboutPage about={about} setAbout={setAbout} skills={skills} setSkills={setSkills}/>;
+      case "contact":   return <AdminContactPage contact={contact} setContact={setContact}/>;
+      case "social":    return <AdminSocialPage social={social} setSocial={setSocial}/>;
+      case "sections":  return <AdminSectionsPage/>;
+      case "messages":  return <AdminMessagesPage data={messages} setData={setMessages}/>;
+      case "settings":  return <AdminSettingsPage/>;
+      default:          return null;
+    }
+  };
+
+  /* ── WEBSITE ───────────────────────────── */
+  if (mode === "website") return (
+    <>
+      <GlobalCSS/>
+      <Toasts/>
+      <div className="w-root">
+        <ScrollProg/>
+        <WebNav/>
+        <WebHero hero={hero}/>
+        <WebMarquee items={marquee}/>
+        <WebStats stats={stats}/>
+        <WebServices services={services}/>
+        <WebPortfolio portfolio={portfolio}/>
+        <WebReviews reviews={reviews}/>
+        <WebAbout about={about} skills={skills}/>
+        <WebContact contact={contact} social={social} messages={messages} setMessages={setMessages}/>
+        <footer>
+          <div>
+            <div className="w-footer-brand">{about.name}</div>
+            <div className="w-footer-txt" style={{marginTop:6}}>{about.tagline}</div>
+          </div>
+          <div className="w-footer-txt">© 2024 All rights reserved.</div>
+        </footer>
+      </div>
+    </>
+  );
+
+  /* ── ADMIN LOGIN ───────────────────────── */
+  if (mode === "admin-login") return (
+    <>
+      <GlobalCSS/>
+      <Toasts/>
+      <AdminLogin onLogin={()=>goAdminApp()} onBack={()=>goWebsite()}/>
+    </>
+  );
+
+  /* ── ADMIN PANEL ───────────────────────── */
+  return (
+    <>
+      <GlobalCSS/>
+      <Toasts/>
+      <div className="a-root">
+        <AdminSidebar page={adminPage} setPage={setAdminPage} msgCount={unread} collapsed={collapsed} setCollapsed={setCollapsed}/>
+        <div className="a-main">
+          <div className="a-topbar">
+            <span className="a-tb-title">{PT[adminPage]||"Admin"}</span>
+            <AdminSearch services={services} portfolio={portfolio} reviews={reviews} messages={messages} onNavigate={setAdminPage}/>
+            <div style={{display:"flex",alignItems:"center",gap:10}}>
+              <div style={{display:"flex",alignItems:"center",gap:6,fontSize:12,color:"var(--a-t4)"}}><div className="a-live-dot"/>Live</div>
+              <div className="a-pill">
+                <div className="a-av" style={{width:28,height:28,fontSize:12}}>P</div>
+                <span style={{fontSize:12,color:"var(--a-t3)"}}>Prothoy</span>
+              </div>
+              <button className="a-bs" style={{fontSize:11}} onClick={()=>goWebsite()}>← Website</button>
+            </div>
+          </div>
+          <div className="a-content">{renderAdminPage()}</div>
+        </div>
+      </div>
+    </>
+  );
+}

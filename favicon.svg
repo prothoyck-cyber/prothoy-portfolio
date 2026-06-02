@@ -1,0 +1,24 @@
+import { useRef } from 'react';
+
+// Animated statistics counter section
+function WebStats({ stats }) {
+  const [go, setGo] = useState(false);
+  const ref = useRef(null);
+  useEffect(()=>{
+    const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting)setGo(true);},{threshold:0.3});
+    if(ref.current)obs.observe(ref.current);
+    return()=>obs.disconnect();
+  },[]);
+  return (
+    <div className="w-stats">
+      <div ref={ref} className="w-stats-grid">
+        {stats.map((s,i)=>{ const v=useCounter(s.value,go); return (
+          <div key={i} className="w-stat"><div className="w-stat-v">{v}{s.suffix}</div><div className="w-stat-l">{s.label}</div></div>
+        );  })}
+      </div>
+    </div>
+  );
+}
+
+
+export { WebStats };
